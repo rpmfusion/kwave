@@ -1,0 +1,11 @@
+--- kwave/kwave.desktop.in	2014-12-28 20:12:51.000000000 +0100
++++ kwave/kwave.desktop.in	2015-01-25 21:23:17.377103795 +0100
+@@ -9,7 +9,7 @@
+ Name=Kwave Sound Editor
+ Name[cs]=Kwave editor zvuku pro prostředí
+ Name[de]=Kwave Sound-Editor
+-Nmae[es]=Kwave editor de sonido para KDE
++Name[es]=Kwave editor de sonido para KDE
+ Name[fr]=Kwave éditeur de sons
+ Comment=A sound editor for KDE
+ Comment[cs]=Editor zvuku pro prostředí KDE

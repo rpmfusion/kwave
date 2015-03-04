@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Mario Blättermann <mariobl@fedoraproject.org> -->
+<application>
+  <id type="desktop">kwave.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPLv2+</project_license>
+  <name>Kwave</name>
+  <summary>Sound Editor for KDE</summary>
+  <summary xml:lang="de">Sound-Editor für KDE</summary>
+  <description>
+    <p>
+      With Kwave you can record, play back, import and edit many sorts of audio files
+      including multi-channel files. Kwave includes some plugins to transform audio
+      files in several ways and presents a graphical view with a complete zoom- and
+      scroll capability.
+    </p>
+    <p xml:lang="de">
+      Mit Kwave können Sie ein- oder mehrkanalige Audio-Dateien aufnehmen, wieder-
+      geben, importieren und bearbeiten. Kwave verfügt über Plugins zum Umwandeln
+      von Audio-Dateien auf verschiedene Weise. Die grafische Oberfläche bietet
+      alle Möglichkeiten für Änderungen der Ansichtsgröße und zum Rollen.
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kwave.sourceforge.net/screenshot/kwave-gui-tab.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://kwave.sourceforge.net/screenshot/kwave-gui-mdi.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://kwave.sourceforge.net/screenshot/kwave-gui-sdi.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">http://kwave.sourceforge.net</url>
+  <updatecontact>mariobl@fedoraproject.org</updatecontact>
+</application>
