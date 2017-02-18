@@ -1,19 +1,34 @@
 %global MP3ENABLED "-DWITH_MP3=ON"
 
 Name:           kwave
-Version:        0.8.99
-Release:        7%{?dist}
+Version:        16.12.2
+Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
 # See the file LICENSES for the licensing scenario
 License:        GPLv2+ and BSD and CC-BY-SA
 URL:            http://kwave.sourceforge.net
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-2.tar.bz2
-Source1:        %{name}.appdata.xml
-# This has been already fixed upstream
-Patch0:         %{name}-desktop.diff
+Source0:        http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
 
+BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(Qt5Multimedia)
+BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5WidgetsAddons)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5Completion)
+BuildRequires:  cmake(KF5KIO)
+BuildRequires:  cmake(KF5IconThemes)
+BuildRequires:  cmake(KF5Crash)
+BuildRequires:  cmake(KF5DBusAddons)
+BuildRequires:  cmake(KF5TextWidgets)
+BuildRequires:  cmake(KF5DocTools)
 BuildRequires:  alsa-lib-devel
 BuildRequires:  audiofile-devel >= 0.3.0
 BuildRequires:  desktop-file-utils
@@ -22,8 +37,6 @@ BuildRequires:  fftw-devel >= 3.0
 BuildRequires:  flac-devel
 BuildRequires:  gettext
 BuildRequires:  id3lib-devel >= 3.8.1
-BuildRequires:  ImageMagick
-BuildRequires:  kdemultimedia-devel >= 4.0
 BuildRequires:  libappstream-glib
 BuildRequires:  libmad-devel
 BuildRequires:  libsamplerate-devel
@@ -52,7 +65,6 @@ Summary(de):    Benutzerhandbücher für %{name}
 License:        GFDL
 BuildArch:      noarch
 
-Requires:       kde-filesystem
 
 %description doc
 This package contains arch-independent files for %{name}, especially the
@@ -64,68 +76,60 @@ speziell die HTML-Dokumentation.
 
 %prep
 %setup -q
-%patch0
 
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%{cmake_kde4} %{MP3ENABLED} ../
+%{cmake_kf5} %{MP3ENABLED} ..
 popd
 make %{?_smp_mflags} -C %{_target_platform}
 
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
-mkdir -p %{buildroot}%{_kde4_datadir}/appdata/
-install -p -m 644 %{SOURCE1} %{buildroot}%{_kde4_datadir}/appdata/
-
-# Generate resized icons
-mkdir -p %{buildroot}/%{_kde4_iconsdir}/hicolor/{16x16,22x22,24x24,32x32,48x48,64x64,72x72,96x96,128x128,256x256}/apps
-for s in 16x16 22x22 24x24 32x32 48x48 64x64 72x72 96x96 128x128 256x256
-do
-    convert -background none %{name}/pics/%{name}.svgz -resize $s %{buildroot}/%{_kde4_iconsdir}/hicolor/$s/apps/%{name}.png;
-done
-
-%find_lang kwave %{name}.lang
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kde4_datadir}/appdata/%{name}.appdata.xml || :
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kde4/%{name}.desktop || :
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_datadir}/appdata/org.kde.%{name}.appdata.xml || :
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop || :
 
 %post
 /sbin/ldconfig
 /usr/bin/update-desktop-database &> /dev/null || :
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+/bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
 /sbin/ldconfig
 /usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+    /bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 fi
 
 %posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 
-%files -f %{name}.lang
+%files
 %doc AUTHORS CHANGES README TODO
 %license GNU-LICENSE LICENSES
-%{_kde4_appsdir}/%{name}
-%{_kde4_bindir}/%{name}
-%{_kde4_datadir}/applications/kde4/%{name}.desktop
-%{_kde4_datadir}/appdata/%{name}.appdata.xml
-%{_kde4_iconsdir}/hicolor/*/apps/%{name}.*
-%{_kde4_iconsdir}/hicolor/*/actions/%{name}*
-%{_kde4_libdir}/kde4/plugins/%{name}
-%{_kde4_libdir}/lib%{name}.so.*
-%{_kde4_libdir}/lib%{name}gui.so.*
+%{_kf5_bindir}/%{name}
+%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_datadir}/appdata/org.kde.%{name}.appdata.xml
+%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf5_datadir}/icons/hicolor/*/actions/%{name}*
+%{_kf5_datadir}/%{name}/
+%{_kf5_datadir}/kservicetypes5/%{name}-plugin.desktop
+%{_kf5_qtplugindir}/%{name}/
+%{_kf5_libdir}/lib%{name}.so.*
+%{_kf5_libdir}/lib%{name}gui.so.*
 
 %files doc
 %doc kwave.lsm
-%{_kde4_docdir}/HTML/*/%{name}
+%{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Sat Feb 18 2017 Leigh Scott <leigh123linux@googlemail.com> - 16.12.2-1
+- Initial port to kf5
+
 * Sun Feb 15 2015 Mario Blättermann <mario.blaettermann@gmail.com> - 0.8.99-7
 - Add BSD license
 
