@@ -37,6 +37,7 @@ BuildRequires:  fftw-devel >= 3.0
 BuildRequires:  flac-devel
 BuildRequires:  gettext
 BuildRequires:  id3lib-devel >= 3.8.1
+BuildRequires:  ImageMagick
 BuildRequires:  libappstream-glib
 BuildRequires:  libmad-devel
 BuildRequires:  libsamplerate-devel
