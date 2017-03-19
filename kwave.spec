@@ -2,7 +2,7 @@
 
 Name:           kwave
 Version:        16.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -128,6 +128,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Sun Mar 19 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 16.12.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Feb 18 2017 Leigh Scott <leigh123linux@googlemail.com> - 16.12.2-1
 - Initial port to kf5
 
