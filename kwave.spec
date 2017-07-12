@@ -1,21 +1,19 @@
-%global MP3ENABLED "-DWITH_MP3=ON"
-
 Name:           kwave
-Version:        16.12.2
-Release:        2%{?dist}
+Version:        17.04.2
+Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
 # See the file LICENSES for the licensing scenario
 License:        GPLv2+ and BSD and CC-BY-SA
 URL:            http://kwave.sourceforge.net
-Source0:        http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
+Source0:        http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(Qt5Multimedia)
@@ -76,18 +74,19 @@ Dieses Paket enthält architekturunabhängige Dateien für %{name},
 speziell die HTML-Dokumentation.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%{cmake_kf5} %{MP3ENABLED} ..
+%{cmake_kf5} -DWITH_MP3=ON ..
+%make_build
 popd
-make %{?_smp_mflags} -C %{_target_platform}
 
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
+%find_lang %{name}
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_datadir}/appdata/org.kde.%{name}.appdata.xml || :
@@ -109,7 +108,7 @@ fi
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 
-%files
+%files -f %{name}.lang
 %doc AUTHORS CHANGES README TODO
 %license GNU-LICENSE LICENSES
 %{_kf5_bindir}/%{name}
@@ -124,10 +123,12 @@ fi
 %{_kf5_libdir}/lib%{name}gui.so.*
 
 %files doc
-%doc kwave.lsm
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Wed Jul 12 2017 Leigh Scott <leigh123linux@googlemail.com> - 17.04.2-1
+- Update to 17.04.2
+
 * Sun Mar 19 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 16.12.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
