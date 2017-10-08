@@ -1,6 +1,6 @@
 Name:           kwave
-Version:        17.04.2
-Release:        2%{?dist}
+Version:        17.08.1
+Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -126,6 +126,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Sun Oct 08 2017 Sérgio Basto <sergio@serjux.com> - 17.08.1-1
+- Update kwave to 17.08.1
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 17.04.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
