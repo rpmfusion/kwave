@@ -17,6 +17,7 @@ Source0:        http://download.kde.org/%{stable}/applications/%{version}/src/%{
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(Qt5Multimedia)
+BuildRequires:  cmake(KF5Archive)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5I18n)
