@@ -1,6 +1,6 @@
 Name:           kwave
 Version:        17.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -90,7 +90,7 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 %find_lang %{name}
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_datadir}/metainfo/org.kde.%{name}.appdata.xml || :
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml || :
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop || :
 
 %post
@@ -114,7 +114,7 @@ fi
 %license GNU-LICENSE LICENSES
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/metainfo/org.kde.%{name}.appdata.xml
+%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/icons/hicolor/*/actions/%{name}*
 %{_kf5_datadir}/%{name}/
@@ -127,6 +127,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Tue Jan 02 2018 Sérgio Basto <sergio@serjux.com> - 17.12.0-2
+- Use _kf5_metainfodir to fix appdata directory issue
+
 * Fri Dec 29 2017 Sérgio Basto <sergio@serjux.com> - 17.12.0-1
 - Update kwave to 17.12.0
 
