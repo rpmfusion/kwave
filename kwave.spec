@@ -1,6 +1,6 @@
 Name:           kwave
-Version:        17.12.0
-Release:        2%{?dist}
+Version:        17.12.1
+Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -127,6 +127,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Tue Jan 30 2018 Sérgio Basto <sergio@serjux.com> - 17.12.1-1
+- Update kwave to 17.12.1
+
 * Tue Jan 02 2018 Sérgio Basto <sergio@serjux.com> - 17.12.0-2
 - Use _kf5_metainfodir to fix appdata directory issue
 
