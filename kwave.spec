@@ -1,5 +1,5 @@
 Name:           kwave
-Version:        17.12.2
+Version:        17.12.3
 Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
@@ -127,6 +127,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Sun Mar 11 2018 Sérgio Basto <sergio@serjux.com> - 17.12.3-1
+- Update kwave to 17.12.3
+
 * Thu Feb 22 2018 Sérgio Basto <sergio@serjux.com> - 17.12.2-1
 - Update kwave to 17.12.2
 
