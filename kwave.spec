@@ -1,6 +1,6 @@
 Name:           kwave
-Version:        17.12.3
-Release:        2%{?dist}
+Version:        18.04.3
+Release:        1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -127,6 +127,9 @@ fi
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Fri Jul 27 2018 Sérgio Basto <sergio@serjux.com> - 18.04.3-1
+- Update kwave to 18.04.3
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 17.12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
